@@ -1,11 +1,11 @@
 # React + Vite
 
-## Rendering Lists 
+## Rendering Lists
 
-Make a list of recipes from this array! For each recipe in the array, display its name as an <h2> and list its ingredients in a <ul>.
+### Make a list of recipes from this array! For each recipe in the array, display its name as an h2 and list its ingredients in a ul.
 
+```
 // App.js
-
 import { recipes } from './data.js';
 
 export default function RecipeList() {
@@ -28,6 +28,9 @@ export default function RecipeList() {
   );
 }
 
+```
+
+```
 // data.js
 
 export const recipes = [{
@@ -44,3 +47,4 @@ export const recipes = [{
   ingredients: ['chickpeas', 'olive oil', 'garlic cloves', 'lemon', 'tahini']
 }];
 
+```
