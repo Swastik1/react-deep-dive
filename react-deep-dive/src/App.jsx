@@ -6,31 +6,29 @@ function Button({ onClick, children }) {
   )
 }
 
-function Playbutton({ movieName }){
-  function handleClick() {
-    alert('You are playing a movie!')
-  }
-
+function Toolbar({ onPlayMovie, onUploadImage, movieName }) {
   return (
-    <Button onClick={handleClick}>
+    <div>
+    <Button onClick={onPlayMovie}>
       Play {movieName}
+      </Button>
+      
+      <Button onClick={onUploadImage}>
+        Upload
     </Button>
+    </div>
   )
 }
 
-function Uploadbutton() {
-  return (
-    <Button onClick={() => alert('You are uploading a video!')}>
-      Upload
-    </Button>
-  )
-}
 
 export default function App() {
   return (
     <div>
-      <Playbutton movieName="The Last KingDom!" />
-      <Uploadbutton />
+      <Toolbar
+        onPlayMovie={() => alert('You are playing a movie')}
+        onUploadImage={() => alert('You are uploading a video!')}
+        movieName='The Boys'
+      />
     </div>
   )
 }
