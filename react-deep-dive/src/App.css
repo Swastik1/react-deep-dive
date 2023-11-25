@@ -30,3 +30,9 @@ h2 {
 .small {
   font-size: 10px;
 }
+
+.colorBox {
+  height: 100px;
+  width: 100px;
+  margin: 8px;
+}
