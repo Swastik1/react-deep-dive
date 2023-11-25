@@ -2,7 +2,10 @@ import './App.css'
 
 export default function Signup() {
   return (
-    <form onSubmit={() => alert('Submiting')}>
+    <form onSubmit={() => {
+      e.preventDefault();
+      alert('Submiting');
+    }}>
       <input />
       <button>Send</button>
     </form>
