@@ -1,20 +1,36 @@
 import './App.css'
 
-function AlertButton({ text, children }) {
+function Button({ onClick, children }) {
   return (
-    <button onClick={() => alert(text)}>{children}</button>
+    <button onClick={onClick}>{children}</button>
+  )
+}
+
+function Playbutton({ movieName }){
+  function handleClick() {
+    alert('You are playing a movie!')
+  }
+
+  return (
+    <Button onClick={handleClick}>
+      Play {movieName}
+    </Button>
+  )
+}
+
+function Uploadbutton() {
+  return (
+    <Button onClick={() => alert('You are uploading a video!')}>
+      Upload
+    </Button>
   )
 }
 
 export default function App() {
   return (
     <div>
-      <AlertButton text="You clicked Play button">
-        Play movie
-      </AlertButton>
-      <AlertButton text="You clicked Upload button">
-        Upload a movie
-      </AlertButton>
+      <Playbutton movieName="The Last KingDom!" />
+      <Uploadbutton />
     </div>
   )
 }
