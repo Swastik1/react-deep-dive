@@ -14,3 +14,19 @@ h2 {
   margin-top: 0;
   font-size: 22px;
 }
+
+.fancy {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.title {
+  color: #007AA3;
+  text-decoration: underline;
+}
+
+.cursive {
+  font-style: italic;
+}
+.small {
+  font-size: 10px;
+}
