@@ -14,3 +14,9 @@ h2 {
   margin-top: 0;
   font-size: 22px;
 }
+
+.Toolbar {
+  background: #aaa;
+  padding: 5px;
+}
+button { margin: 5px; }
