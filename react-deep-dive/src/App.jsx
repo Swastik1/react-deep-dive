@@ -15,7 +15,8 @@ function App() {
         <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
         <li>These steps apply to all other branches as well! Happy Coding ..</li>
       </ol>
-      <img src="/unDraw.svg" />
+      <br />
+      <img src="/undraw.svg" />
     </div>
   )
 }
