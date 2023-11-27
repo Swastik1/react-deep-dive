@@ -1,43 +1,22 @@
 
 import './App.css'
 
-//Conditionally assigning JSX to a variable ----
-function Item({ name, isPacked }) {
-  let itemContent = name;
-  if (isPacked) {
-    itemContent = (
-      <del>{name + " ✔" }</del>
-    )
-  }
-  return (
-    <li className='item'>{itemContent}</li>
-  );
-}
-
 function App() {
-
   return (
-    <section>
-      <h1>Swastik's Itinerary</h1>
-      <ul>
-        <Item
-          isPacked={true}
-          name="Space Suit"
-        />
-
-        <Item
-          isPacked={true}
-          name="Helmet with a golden leaf"
-        />     
-
-        <Item
-          isPacked={false}
-          name="Photo of Tam"
-        />  
-        
-      </ul>
-    </section>
-
+    <div>
+      <h3>Welcome to React-Deep-Dive</h3>
+      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
+        <br />
+         Kindly go to a specific commit inside the branch to know about the sub topics. 
+      </p>
+      <ol>
+        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
+        <li>Click to react-deep-dive folder</li>
+        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
+        <li>These steps apply to all other branches as well! Happy Coding ..</li>
+      </ol>
+      <img src="/unDraw.svg" />
+    </div>
   )
 }
 
