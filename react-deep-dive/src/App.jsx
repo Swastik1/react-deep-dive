@@ -1,44 +1,46 @@
-
+import { people } from './data';
+import { getImageUrl } from './utils';
 import './App.css'
 
-//Conditionally assigning JSX to a variable ----
-function Item({ name, isPacked }) {
-  let itemContent = name;
-  if (isPacked) {
-    itemContent = (
-      <del>{name + " ✔" }</del>
-    )
-  }
+
+function ListSection({ title, people }) {
   return (
-    <li className='item'>{itemContent}</li>
-  );
+    <>
+      <h4>{title}</h4>
+      <ul>
+        {people.map(person => 
+           <li key={person.id}>
+            <img
+              src={getImageUrl(person)}
+              alt={person.name}
+            />
+            <p>
+              <b>{person.name}:</b>
+              {' ' + person.profession + ' '}
+              known for {person.accomplishment}
+            </p>
+          </li>
+        )}</ul>
+    </>
+  ) 
 }
 
 function App() {
-
+  const chemists = people.filter(person => person.profession === 'chemist');
+  const everyoneElse = people.filter(person => person.profession !== 'chemist')
   return (
-    <section>
-      <h1>Swastik's Itinerary</h1>
-      <ul>
-        <Item
-          isPacked={true}
-          name="Space Suit"
-        />
-
-        <Item
-          isPacked={true}
-          name="Helmet with a golden leaf"
-        />     
-
-        <Item
-          isPacked={false}
-          name="Photo of Tam"
-        />  
-        
-      </ul>
-    </section>
-
+    <article>
+      <h1>Scientists</h1>
+      <ListSection 
+        title="Chemists"
+        people={chemists}
+      />
+      <ListSection 
+        title="Everyone Else"
+        people={everyoneElse}
+      />
+    </article>
   )
 }
 
-export default App
+export default App;
