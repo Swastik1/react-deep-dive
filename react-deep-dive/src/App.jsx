@@ -1,24 +1,42 @@
-
+import { sculptureList } from './data';
+import { useState } from 'react';
 import './App.css'
 
-function App() {
-  return (
-    <div>
-      <h3>Welcome to React-Deep-Dive</h3>
-      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
-        <br />
-         Kindly go to a specific commit inside the branch to know about the sub topics. 
-      </p>
-      <ol>
-        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
-        <li>Click to react-deep-dive folder</li>
-        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
-        <li>These steps apply to all other branches as well! Happy Coding ..</li>
-      </ol>
-      <br />
-      <img src="/undraw.svg" />
-    </div>
-  )
-}
+export default function App() {
+  const [index, setIndex] = useState(0);
+  const [showMore, setShowMore] = useState(false);
+  let hasNext = index < sculptureList.length - 1;
+  let hasPrev = index > 0
+  function handleClick() {
+    if (hasNext) {
+      setIndex(index + 1);
+    }
+  }
 
-export default App
+  function handlePrevClick() {
+    if (hasPrev)
+    setIndex(index - 1);
+  }
+
+  function handleMoreClick() {
+    setShowMore(!showMore);
+  }
+
+  let sculpture = sculptureList[index];
+
+  return (
+    <>
+      <h1>
+        <i>{sculpture.name}</i> by {sculpture.artist}
+      </h1>
+      <button onClick={handleClick} disabled={!hasNext}>Next</button>
+      <button onClick={handlePrevClick} disabled={!hasPrev}>Previous</button>
+      <p>({index + 1} of {sculptureList.length})</p>
+      <button onClick={handleMoreClick}>{showMore ? 'Hide' : 'Show'} details</button>
+      {showMore && <p>{sculpture.description}</p>}
+      <br />
+      <br />
+      <img src={sculpture.url} alt={sculpture.alt} />
+    </>
+  )
+} 
