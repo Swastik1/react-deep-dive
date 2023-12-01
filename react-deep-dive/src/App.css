@@ -19,7 +19,7 @@ img {
   height: 500px;
 }
 
-textarea{
+label , textarea{
   margin-bottom: 10px;
   display: block;
 }

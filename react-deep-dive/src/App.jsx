@@ -1,36 +1,35 @@
-import { useState } from 'react';
-import './App.css';
+import React, { useState } from 'react'
 
 const App = () => {
-  const [isSent, setIsSent] = useState(false);
-  const [message, setMessage] = useState('Hi');
+  const [message, setMessage] = useState("Hello");
+  const [to, setTo] = useState('Alice');
 
-  if (isSent) {
-    return <h1>Your message has been submitted!</h1>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      alert(`You sent ${message} to ${to}`);
+    }, 5000);
   }
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      setIsSent(true);
-      sendMessage(message);
-    }}> 
-      <textarea placeholder={message}
+    <form onSubmit={handleSubmit}>
+      <label>
+        To: {' '}
+        <select value={to}
+          onChange={e => setTo(e.target.value)}
+        >
+          <option value="Alice">Alice</option>
+          <option value="Bob">Bob</option>
+        </select>
+      </label>
+      <textarea onChange={e => setMessage(e.target.value)}
+        placeholder="Message"
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
       />
-      <button>Send</button>
+      <button type='Submit'>Submit</button>
+
     </form>
   )
 }
 
-function sendMessage(message) {
-  //
-}
-
 export default App
-
-
-// The onSubmit event handler executes.
-// setIsSent(true) sets isSent to true and queues a new render.
-// React re-renders the component according to the new isSent value.
