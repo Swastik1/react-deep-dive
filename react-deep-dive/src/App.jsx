@@ -1,23 +1,34 @@
+import React, { useState } from 'react'
 
-import './App.css'
+const App = () => {
+  const [message, setMessage] = useState("Hello");
+  const [to, setTo] = useState('Alice');
 
-function App() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      alert(`You sent ${message} to ${to}`);
+    }, 5000);
+  }
+
   return (
-    <div>
-      <h3>Welcome to React-Deep-Dive</h3>
-      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
-        <br />
-         Kindly go to a specific commit inside the branch to know about the sub topics. 
-      </p>
-      <ol>
-        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
-        <li>Click to react-deep-dive folder</li>
-        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
-        <li>These steps apply to all other branches as well! Happy Coding ..</li>
-      </ol>
-      <br />
-      <img src="/undraw.svg" />
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label>
+        To: {' '}
+        <select value={to}
+          onChange={e => setTo(e.target.value)}
+        >
+          <option value="Alice">Alice</option>
+          <option value="Bob">Bob</option>
+        </select>
+      </label>
+      <textarea onChange={e => setMessage(e.target.value)}
+        placeholder="Message"
+        value={message}
+      />
+      <button type='Submit'>Submit</button>
+
+    </form>
   )
 }
 
