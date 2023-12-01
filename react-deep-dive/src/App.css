@@ -18,3 +18,8 @@ h2 {
 img {
   height: 500px;
 }
+
+textarea{
+  margin-bottom: 10px;
+  display: block;
+}
