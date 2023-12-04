@@ -1,24 +1,65 @@
+import { useState } from "react";
+import './App.css';
+import React from 'react'
 
-import './App.css'
+const Form = () => {
 
-function App() {
+  const [person, setPerson] = useState(
+    {
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    }
+  })
+
+  const handlePerson = (e) => {
+    setPerson({
+      ...person,
+      [e.target.item]: e.target.value
+    })
+  }
+
   return (
-    <div>
-      <h3>Welcome to React-Deep-Dive</h3>
-      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
-        <br />
-         Kindly go to a specific commit inside the branch to know about the sub topics. 
-      </p>
-      <ol>
-        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
-        <li>Click to react-deep-dive folder</li>
-        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
-        <li>These steps apply to all other branches as well! Happy Coding ..</li>
-      </ol>
+    <div style={{textAlign: 'center'}}>
+      <h1>Data Form</h1>
+
+      <label> Name: <input
+        item="name"
+        value={person.name}
+        onChange={handlePerson} />
+      </label>
       <br />
-      <img src="/undraw.svg" />
+
+      <label> Title: <input
+        item="title"
+        value={person.artwork.title}
+        onChange={handlePerson} />
+      </label>
+      <br />
+
+      <label> City: <input
+        item="city"
+        value={person.artwork.city}
+        onChange={handlePerson} />
+      </label>
+      <br />
+      <label> Image: <input
+        item="image"
+        value={person.artwork.image}
+        onChange={handlePerson} />
+      </label>
+
+      <p><h3>{person.artwork.title}</h3>{" "} by {" "}
+        <b>{person.name}</b>{" "}
+        (located in {" "}
+        {person.artwork.city}){" "}
+      </p>
+
+      <img src={person.artwork.image} alt={person.artwork.ti} />
     </div>
   )
 }
 
-export default App
+export default Form
