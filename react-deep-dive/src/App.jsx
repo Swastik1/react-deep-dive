@@ -1,40 +1,60 @@
+import { useState } from "react";
+import './App.css';
 import React from 'react'
-import { useState } from 'react'
 
-const MovindDot = () => {
+const Form = () => {
 
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0
+  const [person, setPerson] = useState({
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'johndoe@gmail.com'
   })
 
-  const handleMove = (e) => {
-    setPosition({
-      x: e.clientX,
-      y: e.clientY
+  const handleFirstname = (e) => {
+    setPerson({
+      ...person,
+      firstName: e.target.value
+    })
+  }
+
+    const handleLastname = (e) => {
+    setPerson({
+      ...person,
+      lastName: e.target.value
+    })
+    }
+  
+    const handleEmail = (e) => {
+    setPerson({
+      ...person,
+      email: e.target.value
     })
   }
 
   return (
-    <div onPointerMove={handleMove}
-      style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh'
-      }}
-    >
-      <div style={{
-        position: 'absolute',
-        backgroundColor: 'red',
-        borderRadius: '50%',
-        transform: `translate(${position.x}px , ${position.y}px)`,
-        left: -10,
-        top: -10,
-        width: 20,
-        height: 20
-      }} />
+    <div style={{textAlign: 'center'}}>
+      <h1>Data Form</h1>
+
+      <label>FirstName: <input
+        value={person.firstName}
+        onChange={handleFirstname} />
+      </label>
+      <br />
+
+      <label>LastName: <input
+        value={person.lastName}
+        onChange={handleLastname} />
+      </label>
+      <br />
+
+      <label>Email: <input value={person.email} onChange={handleEmail} /></label>
+
+      <p>{person.firstName}{" "}
+        {person.lastName}{" "}
+        ({person.email})
+      </p>
     </div>
   )
 }
 
-export default MovindDot;
+export default Form
