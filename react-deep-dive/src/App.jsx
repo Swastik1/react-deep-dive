@@ -1,24 +1,40 @@
+import React from 'react'
+import { useState } from 'react'
 
-import './App.css'
+const MovindDot = () => {
 
-function App() {
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0
+  })
+
+  const handleMove = (e) => {
+    setPosition({
+      x: e.clientX,
+      y: e.clientY
+    })
+  }
+
   return (
-    <div>
-      <h3>Welcome to React-Deep-Dive</h3>
-      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
-        <br />
-         Kindly go to a specific commit inside the branch to know about the sub topics. 
-      </p>
-      <ol>
-        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
-        <li>Click to react-deep-dive folder</li>
-        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
-        <li>These steps apply to all other branches as well! Happy Coding ..</li>
-      </ol>
-      <br />
-      <img src="/undraw.svg" />
+    <div onPointerMove={handleMove}
+      style={{
+        position: 'relative',
+        width: '100vw',
+        height: '100vh'
+      }}
+    >
+      <div style={{
+        position: 'absolute',
+        backgroundColor: 'red',
+        borderRadius: '50%',
+        transform: `translate(${position.x}px , ${position.y}px)`,
+        left: -10,
+        top: -10,
+        width: 20,
+        height: 20
+      }} />
     </div>
   )
 }
 
-export default App
+export default MovindDot;
