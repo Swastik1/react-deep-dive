@@ -16,11 +16,24 @@ const List = () => {
       ...artists,
       {id: nextId++, name: name}
     ])
+    setName("");
   }
 
+  const handleRemove = (e,id) => {
+    e.preventDefault();
+    setArtist(artists.filter((artist) => artist.id !== id))
+  }
+
+
   const listArtists = artists.map((artist) => {
-    return <li key={artist.id}>{artist.name}</li>
+    return (
+      <li key={artist.id}>{artist.name}
+        <button onClick={(e) => handleRemove(e,artist.id)}>Delete</button>
+      </li>
+      
+    )
   }) 
+  
 
   return (
     <div>
