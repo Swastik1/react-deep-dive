@@ -1,51 +1,39 @@
 import React, { useState } from 'react'
 
-let initialState = [
-   { id: 0, type: 'circle', x: 50, y: 100 },
-  { id: 1, type: 'square', x: 150, y: 100 },
-  { id: 2, type: 'circle', x: 250, y: 100 },
+const initialCounters = [
+  0,0,0
 ]
 
-const ShapeEditor = () => {
+const CounterList = () => {
+  const [counters, setCounters] = useState(initialCounters);
 
-  const [shapes, setShapes] = useState(initialState);
-
-  const handleClick = () => {
-    const nextShapes = shapes.map((shape) => {
-      if (shape.type === 'square') {
-        return shape;
+  const handleClick = (e, index) => {
+    e.preventDefault()
+    const nextCounters = counters.map((c, i) => {
+      if (i === index) {
+        return c + 1;
       } else {
-        return {
-          ...shape,
-          y: shape.y + 50
-        }
+        return c;
       }
     })
-    setShapes(nextShapes);
+    setCounters(nextCounters);
   }
 
+  const counterContent = counters.map((counter, i) => {
+    return (
+      <li key={i}>{counter}
+        <button onClick={(e) => handleClick(e,i)}> +1 </button>
+      </li>
+    )
+  })
+
   return (
-    <>
-      <button onClick={handleClick}>
-        Move circles down!
-      </button>
-      {shapes.map(shape => (
-        <div
-          key={shape.id}
-          style={{
-          background: 'purple',
-          position: 'absolute',
-          left: shape.x,
-          top: shape.y,
-          borderRadius:
-            shape.type === 'circle'
-              ? '50%' : '',
-          width: 20,
-          height: 20,
-        }} />
-      ))}
-    </>
+    <div>
+      <ul>
+        {counterContent}
+      </ul>
+    </div>
   )
 }
 
-export default ShapeEditor;
+export default CounterList;
