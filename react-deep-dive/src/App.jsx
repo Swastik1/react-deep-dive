@@ -1,24 +1,37 @@
+import React, { useState } from 'react'
 
-import './App.css'
+let nextId = 0;
 
-function App() {
+const List = () => {
+  const [name, setName] = useState("");
+  const [artists, setArtist] = useState([]);
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setArtist([
+      ...artists,
+      {id: nextId++, name: name}
+    ])
+  }
+
+  const listArtists = artists.map((artist) => {
+    return <li key={artist.id}>{artist.name}</li>
+  }) 
+
   return (
     <div>
-      <h3>Welcome to React-Deep-Dive</h3>
-      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
-        <br />
-         Kindly go to a specific commit inside the branch to know about the sub topics. 
-      </p>
-      <ol>
-        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
-        <li>Click to react-deep-dive folder</li>
-        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
-        <li>These steps apply to all other branches as well! Happy Coding ..</li>
-      </ol>
-      <br />
-      <img src="/undraw.svg" />
+      <h1>Inspiring Sculptors</h1>
+      <input value={name} onChange={handleChange}/>
+      <button onClick={handleClick}>Add</button>
+      <ul>
+        {listArtists}
+      </ul>
     </div>
   )
 }
 
-export default App
+export default List;
