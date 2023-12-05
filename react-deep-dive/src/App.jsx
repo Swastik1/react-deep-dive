@@ -1,39 +1,50 @@
 import React, { useState } from 'react'
 
-const initialCounters = [
-  0,0,0
+
+let nextId = 3;
+const initialArtists = [
+  { id: 0, name: 'Marta Colvin Andrade' },
+  { id: 1, name: 'Lamidi Olonade Fakeye'},
+  { id: 2, name: 'Louise Nevelson'},
 ]
 
-const CounterList = () => {
-  const [counters, setCounters] = useState(initialCounters);
+const List = () => {
+  const [name, setName] = useState("");
+  const [artists, setArtists] = useState(initialArtists);
 
-  const handleClick = (e, index) => {
-    e.preventDefault()
-    const nextCounters = counters.map((c, i) => {
-      if (i === index) {
-        return c + 1;
-      } else {
-        return c;
-      }
-    })
-    setCounters(nextCounters);
+  const handleChange = (e) => {
+    setName(e.target.value)
   }
 
-  const counterContent = counters.map((counter, i) => {
+  const handleClick = () => {
+    if (!name.trim()) {
+      alert("Elina you suck!!");
+      return;
+    }
+    const insertAt = 1;
+    const nextArtists = [
+      ...artists.slice(0, insertAt),
+      { id: nextId++, name: name },
+      ...artists.slice(insertAt),
+    ]
+    setArtists(nextArtists);
+    setName("");
+  }
+
+  const artistContent = artists.map((artist) => {
     return (
-      <li key={i}>{counter}
-        <button onClick={(e) => handleClick(e,i)}> +1 </button>
-      </li>
+      <li key={artist.id}>{ artist.name}</li>
     )
   })
 
   return (
     <div>
-      <ul>
-        {counterContent}
-      </ul>
+      <h1>Inspiring Sculptors</h1>
+      <input  value={name} onChange={handleChange} />
+      <button onClick={handleClick}>Insert</button>
+      <ul>{artistContent}</ul>
     </div>
   )
 }
 
-export default CounterList;
+export default List
