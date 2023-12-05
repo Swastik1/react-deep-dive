@@ -1,50 +1,51 @@
 import React, { useState } from 'react'
 
-let nextId = 0;
+let initialState = [
+   { id: 0, type: 'circle', x: 50, y: 100 },
+  { id: 1, type: 'square', x: 150, y: 100 },
+  { id: 2, type: 'circle', x: 250, y: 100 },
+]
 
-const List = () => {
-  const [name, setName] = useState("");
-  const [artists, setArtist] = useState([]);
+const ShapeEditor = () => {
 
-  const handleChange = (e) => {
-    setName(e.target.value);
+  const [shapes, setShapes] = useState(initialState);
+
+  const handleClick = () => {
+    const nextShapes = shapes.map((shape) => {
+      if (shape.type === 'square') {
+        return shape;
+      } else {
+        return {
+          ...shape,
+          y: shape.y + 50
+        }
+      }
+    })
+    setShapes(nextShapes);
   }
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    setArtist([
-      ...artists,
-      {id: nextId++, name: name}
-    ])
-    setName("");
-  }
-
-  const handleRemove = (e,id) => {
-    e.preventDefault();
-    setArtist(artists.filter((artist) => artist.id !== id))
-  }
-
-
-  const listArtists = artists.map((artist) => {
-    return (
-      <li key={artist.id}>{artist.name}
-        <button onClick={(e) => handleRemove(e,artist.id)}>Delete</button>
-      </li>
-      
-    )
-  }) 
-  
 
   return (
-    <div>
-      <h1>Inspiring Sculptors</h1>
-      <input value={name} onChange={handleChange}/>
-      <button onClick={handleClick}>Add</button>
-      <ul>
-        {listArtists}
-      </ul>
-    </div>
+    <>
+      <button onClick={handleClick}>
+        Move circles down!
+      </button>
+      {shapes.map(shape => (
+        <div
+          key={shape.id}
+          style={{
+          background: 'purple',
+          position: 'absolute',
+          left: shape.x,
+          top: shape.y,
+          borderRadius:
+            shape.type === 'circle'
+              ? '50%' : '',
+          width: 20,
+          height: 20,
+        }} />
+      ))}
+    </>
   )
 }
 
-export default List;
+export default ShapeEditor;
