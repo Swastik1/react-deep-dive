@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useImmer } from 'use-immer';
 
 const initialList = [
   { id: 0, title: 'Big Bellies', seen: false },
@@ -8,27 +8,25 @@ const initialList = [
 ];
 
 const BucketList = () => {
-  const [myList, setMyList] = useState(initialList);
-  const [yourList, setYourList] = useState(initialList);
+  const [myList, updateMyList] = useImmer(initialList);
+  const [yourList, updateYourList] = useImmer(initialList);
     
-  const handleToggleMyList = (artworkId,nextSeen) => {
-    setMyList(myList.map((artwork) => {
-      if (artwork.id === artworkId) {
-        return {...artwork, seen: nextSeen}
-      } else {
-        return artwork;
-      }
-    }))
+  const handleToggleMyList = (id,nextSeen) => {
+    updateMyList((draft) => {
+      const artwork = draft.find((a) =>
+        a.id === id
+      )
+      artwork.seen = nextSeen;
+    })
   } 
 
-  const handleToggleYourList = (artworkId, nextSeen) => {
-    setYourList(yourList.map((artwork) => {
-      if (artwork.id === artworkId) {
-        return {...artwork, seen: nextSeen}
-      } else {
-        return artwork;
-      }
-    }))
+  const handleToggleYourList = (id, nextSeen) => {
+    updateYourList((draft) => {
+      const artwork = draft.find((a) => 
+        a.id === id
+      )
+      artwork.seen = nextSeen;
+    })
   }
 
   return (
