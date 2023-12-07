@@ -1,50 +1,36 @@
-import React, { useState } from 'react'
-
+import React from 'react'
+import { useState } from 'react';
 
 let nextId = 3;
-const initialArtists = [
-  { id: 0, name: 'Marta Colvin Andrade' },
-  { id: 1, name: 'Lamidi Olonade Fakeye'},
-  { id: 2, name: 'Louise Nevelson'},
-]
+const initialList = [
+  { id: 0, title: 'Big Bellies' },
+  { id: 1, title: 'Lunar Landscape' },
+  { id: 2, title: 'Terracotta Army' },
+];
+
 
 const List = () => {
-  const [name, setName] = useState("");
-  const [artists, setArtists] = useState(initialArtists);
-
-  const handleChange = (e) => {
-    setName(e.target.value)
-  }
+  const [items, setItems] = useState(initialList);
 
   const handleClick = () => {
-    if (!name.trim()) {
-      alert("Please Provide a valid name");
-      return;
-    }
-    const insertAt = 1;
-    const nextArtists = [
-      ...artists.slice(0, insertAt),
-      { id: nextId++, name: name },
-      ...artists.slice(insertAt),
-    ]
-    setArtists(nextArtists);
-    setName("");
-  }
+    const nextItems = [...items];
+    nextItems.reverse();
+    setItems(nextItems);
+  };
 
-  const artistContent = artists.map((artist) => {
+  const itemContent = items.map((item) => {
     return (
-      <li key={artist.id}>{ artist.name}</li>
+      <li key={item.id}>{item.title}</li>
     )
-  })
+  });
+    
 
   return (
     <div>
-      <h1>Inspiring Sculptors</h1>
-      <input value={name} onChange={handleChange} />
-      <button onClick={handleClick}>Insert</button>
-      <ul>{artistContent}</ul>
+      <button onClick={handleClick}>Reverse</button>
+      <ul>{itemContent}</ul>
     </div>
   )
 }
 
-export default List
+export default List;
