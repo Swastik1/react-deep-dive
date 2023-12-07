@@ -18,7 +18,7 @@ const List = () => {
 
   const handleClick = () => {
     if (!name.trim()) {
-      alert("Elina you suck!!");
+      alert("Please Provide a valid name");
       return;
     }
     const insertAt = 1;
@@ -40,7 +40,7 @@ const List = () => {
   return (
     <div>
       <h1>Inspiring Sculptors</h1>
-      <input  value={name} onChange={handleChange} />
+      <input value={name} onChange={handleChange} />
       <button onClick={handleClick}>Insert</button>
       <ul>{artistContent}</ul>
     </div>
