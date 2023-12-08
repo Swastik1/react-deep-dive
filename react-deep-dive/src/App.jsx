@@ -1,68 +1,64 @@
 import React from 'react'
-import { useImmer } from 'use-immer';
+import { useState } from 'react'
 
-const initialList = [
-  { id: 0, title: 'Big Bellies', seen: false },
-  { id: 1, title: 'Lunar Landscape', seen: false },
-  { id: 2, title: 'Terracotta Army', seen: true },
-];
+const initialProducts = [{
+  id: 0,
+  name: 'Baklava',
+  count: 1,
+}, {
+  id: 1,
+  name: 'Cheese',
+  count: 5,
+}, {
+  id: 2,
+  name: 'Spaghetti',
+  count: 2,
+}];
 
-const BucketList = () => {
-  const [myList, updateMyList] = useImmer(initialList);
-  const [yourList, updateYourList] = useImmer(initialList);
-    
-  const handleToggleMyList = (id,nextSeen) => {
-    updateMyList((draft) => {
-      const artwork = draft.find((a) =>
-        a.id === id
-      )
-      artwork.seen = nextSeen;
-    })
-  } 
+const App = () => {
+  const [products, setProducts] = useState(initialProducts);
 
-  const handleToggleYourList = (id, nextSeen) => {
-    updateYourList((draft) => {
-      const artwork = draft.find((a) => 
-        a.id === id
-      )
-      artwork.seen = nextSeen;
-    })
+  const handleIncreaseClick = (productId) => {
+    setProducts(
+      products.map((product) => {
+        if (product.id === productId) {
+          return {...product, count: product.count + 1 }
+        } else {
+          return product;
+        }
+      })  
+    )
   }
+
+  const handleDecreaseClick = (productId) => {
+    setProducts(
+      products.map((product) => {
+        if (product.id === productId && product.count > 0) {
+          return {...product, count: product.count - 1}
+        } else {
+          return product;
+        }
+      })
+    )
+  
+  }
+
+  const content = products.map((product) => {
+    return (
+      <li key={product.id}>
+        {product.name} {" "}
+        (<b>{product.count}</b>) {" "}
+        <button onClick={handleIncreaseClick.bind(null,product.id)}>+</button>
+        <button onClick={() => handleDecreaseClick(product.id)}>-</button>
+      </li>
+    )
+  })
 
   return (
     <div>
-      <h1>Art Bucket List: </h1>
-      <h2>My List of art to see:</h2>
-      <ItemList artworks={myList} onToggle={handleToggleMyList} />
-      <h2>Your List of art to see:</h2>
-      <ItemList artworks={yourList} onToggle={handleToggleYourList} />
+      <ul>{content}</ul>
     </div>
   )
 }
 
-const ItemList = ({artworks,onToggle}) => {
-  return (
-    <ul>
-      {artworks.map((artwork) => {
-        return (
-          <li key={artwork.id}>
-            <label>
-              <input type="checkbox"
-                checked={artwork.seen}
-                onChange={(e) => {
-                  onToggle(
-                    artwork.id,
-                    e.target.checked
-                  )
-                }}
-              />
-              {artwork.title}
-            </label>
-          </li>
-        )
-      })}
-    </ul>
-  )
-}
-
-export default BucketList;
+export default App
