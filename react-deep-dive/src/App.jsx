@@ -1,24 +1,46 @@
+import React, { useState } from 'react'
 
-import './App.css'
+const App = () => {
+  const [text, setText] = useState("");
+  const [status, setStatus] = useState('typing');
 
-function App() {
+  const handleChange = (e) => {
+    setText(e.target.value)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    await sendMessage(text);
+    setStatus('sent');
+  }
+
+  const isSending = status === 'sending';
+  const isSent = status === 'sent';
+
+  if (isSent) {
+    return <h1>Thanks for the feedback!</h1>
+  }
+
   return (
     <div>
-      <h3>Welcome to React-Deep-Dive</h3>
-      <p>This repository consists of several branches where you can switch in between them to know about a specific topic.
+      <form onSubmit={handleSubmit}>
+        <p>How was your stay at The Prancing Pony?</p>
+        <textarea
+          disabled={isSending}
+          value={text}
+          onChange={handleChange}
+        ></textarea>
         <br />
-         Kindly go to a specific commit inside the branch to know about the sub topics. 
-      </p>
-      <ol>
-        <li>Go to a specific branch - e.g (<b>responding-to-events</b>)</li>
-        <li>Click to react-deep-dive folder</li>
-        <li>And then navigate to '10 commits ahead of main' where you can find the subtopics.</li>
-        <li>These steps apply to all other branches as well! Happy Coding ..</li>
-      </ol>
-      <br />
-      <img src="/undraw.svg" />
+        <button disabled={isSending} >Send</button>
+        {isSending && <p>Sending ...</p>}
+      </form>
     </div>
   )
+}
+
+const sendMessage = (text) => {
+  return new Promise(resolve => setTimeout(resolve,2000))
 }
 
 export default App
