@@ -1,34 +1,34 @@
 import React, { useState } from 'react'
 
+const initialItems = [
+  { title: 'pretzels', id: 0 },
+  { title: 'crispy seaweed', id: 1 },
+  { title: 'granola bar', id: 2 },
+];
+
 const App = () => {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: ""
-  })
+  const [items, setItems] = useState(initialItems);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
 
-  const handleFirstNameChange = (e) => {
-    setUser({...user, firstName: e.target.value})
+  const handleClick = (item) => {
+    setSelectedItem(item)
   }
 
-  const handleLastNameChange = (e) => {
-    setUser({...user, lastName: e.target.value})
-  }
-
-  const fullName = user.firstName + " " + user.lastName;
-
+  const itemContent = Array.isArray(items) ? (items.map((item) => (
+    <li key={item.id}>{item.title} {" "}
+      <button onClick={() => handleClick(item)}>Choose</button>
+    </li>
+  ))) : (
+      <div>Loading ...</div>
+  )
 
   return (
     <div>
-      <h2>Let's check you in</h2>
-      <label>First Name: 
-        <input type="text" value={user.firstName} onChange={handleFirstNameChange}  />
-      </label>
-      <br />
-      <label>Last Name:
-        <input type="text" value={user.lastName} onChange={handleLastNameChange}/>
-      </label>
-      <br />
-      <label>Your ticket will be issued to: <b>{fullName}</b> </label>  
+      <h2>What's your travel snack?</h2>
+      <ul>
+        {itemContent}
+      </ul>
+      <p>You selected { selectedItem.title}</p>
     </div>
   )
 }
